@@ -1,35 +1,26 @@
 return {
     {
         "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup({
-                ui = {
-                    icons = {
-                        package_installed = "✓",
-                        package_pending = "➜",
-                        package_uninstalled = "✗",
-                    },
-                },
-            })
-        end,
-    },
-    {
+        opts = {
+            ui = {
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = "✗"
+                }
+            }
+        }
+    }, {
         "williamboman/mason-lspconfig.nvim",
-        config = function()
-            require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "cairo_ls", "tsserver" },
-            })
-        end,
-    },
-    {
+        opts = {ensure_installed = {"cairo_ls", "rust_analyzer"}}
+    }, {
         "neovim/nvim-lspconfig",
-        config = function()
-            local lspconfig = require("lspconfig")
-            lspconfig.lua_ls.setup({})
-            lspconfig.cairo_ls.setup({
-                cmd = { "scarb", "cairo-language-server", "/C", "--node-ipc" },
-            })
-            lspconfig.tsserver.setup({})
-        end,
-    },
+        opts = {
+            servers = {
+                cairo_ls = {
+                    cmd = {"scarb", "cairo-language-server", "/C", "--node-ipc"}
+                }
+            }
+        }
+    }
 }
