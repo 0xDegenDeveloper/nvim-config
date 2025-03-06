@@ -1,23 +1,19 @@
 return {
   -- Your colorschemes with configurations
   {
-    "lalitmee/cobalt2.nvim",
-    lazy = true,
-    dependencies = { "tjdevries/colorbuddy.nvim", tag = "v1.0.0" },
-    init = function()
-      require("colorbuddy").colorscheme("cobalt2")
-    end,
-  },
-
-  {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
     opts = {
-      flavour = "mocha", -- latte, frappe, macchiato, mocha
-      transparent_background = false,
+      flavour = "latte", -- latte, frappe, macchiato, mocha
+      transparent_background = true,
     },
   },
+
+
+
+
+
 
   {
     "folke/tokyonight.nvim",
@@ -28,16 +24,34 @@ return {
   },
 
   -- Add more colorschemes here
-  { "rebelot/kanagawa.nvim", priority = 1000 },
-  { "EdenEast/nightfox.nvim", priority = 1000 },
-  { "rose-pine/neovim", name = "rose-pine", priority = 1000 },
+  { "rebelot/kanagawa.nvim", priority = 1000, opts = { style = "lotus" } },
+
+  -- Nightfox configuration (only define it once)
+  {
+    "EdenEast/nightfox.nvim",
+    lazy = false,
+    priority = 1000, -- Make sure it loads first
+    config = function()
+      require("nightfox").setup({
+        -- You can customize nightfox here
+        options = {
+          styles = {
+            comments = "italic",
+            keywords = "bold",
+            types = "italic",
+          },
+        },
+      })
+    end,
+  },
+
+  --{ "rose-pine/neovim", name = "rose-pine", priority = 1000 },
 
   -- Set the default colorscheme
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "nightfox", -- Change this to your preferred default
+      colorscheme = "nightfox",
     },
   },
 }
-
